@@ -202,13 +202,29 @@ _fancyapps_ui__WEBPACK_IMPORTED_MODULE_0__.Fancybox.bind('[data-fancybox="galler
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
 
-swiper__WEBPACK_IMPORTED_MODULE_0__["default"].use([swiper__WEBPACK_IMPORTED_MODULE_0__.EffectFade, swiper__WEBPACK_IMPORTED_MODULE_0__.Autoplay, swiper__WEBPACK_IMPORTED_MODULE_0__.Pagination]);
-const swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".swiper", {
+swiper__WEBPACK_IMPORTED_MODULE_0__["default"].use([swiper__WEBPACK_IMPORTED_MODULE_0__.EffectCoverflow, swiper__WEBPACK_IMPORTED_MODULE_0__.EffectFade, swiper__WEBPACK_IMPORTED_MODULE_0__.Autoplay, swiper__WEBPACK_IMPORTED_MODULE_0__.Pagination]);
+const swiperHero = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".swiper-hero", {
   autoplay: {
     delay: 8000
   },
   loop: true,
   effect: "fade",
+  pagination: {
+    el: ".swiper-pagination"
+  }
+});
+const swiperTestimonials = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".swiper-testimonials", {
+  effect: "coverflow",
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: "auto",
+  coverflowEffect: {
+    rotate: 0,
+    stretch: 0,
+    depth: 100,
+    modifier: 2,
+    slideShadows: true
+  },
   pagination: {
     el: ".swiper-pagination"
   }
@@ -224,9 +240,8 @@ const swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".swiper", {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions_disable_scroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/disable-scroll */ "./src/js/functions/disable-scroll.js");
-/* harmony import */ var _functions_enable_scroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functions/enable-scroll */ "./src/js/functions/enable-scroll.js");
-
+/* harmony import */ var _functions_enable_scroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/enable-scroll */ "./src/js/functions/enable-scroll.js");
+// import { disableScroll } from '../functions/disable-scroll';
 
 (function () {
   const burger = document?.querySelector('[data-burger]');
@@ -239,11 +254,11 @@ __webpack_require__.r(__webpack_exports__);
     if (menu?.classList.contains('menu--active')) {
       burger?.setAttribute('aria-expanded', 'true');
       burger?.setAttribute('aria-label', 'Закрыть меню');
-      (0,_functions_disable_scroll__WEBPACK_IMPORTED_MODULE_0__.disableScroll)();
+      disableScroll();
     } else {
       burger?.setAttribute('aria-expanded', 'false');
       burger?.setAttribute('aria-label', 'Открыть меню');
-      (0,_functions_enable_scroll__WEBPACK_IMPORTED_MODULE_1__.enableScroll)();
+      (0,_functions_enable_scroll__WEBPACK_IMPORTED_MODULE_0__.enableScroll)();
     }
   });
   overlay?.addEventListener('click', () => {
@@ -251,7 +266,7 @@ __webpack_require__.r(__webpack_exports__);
     burger?.setAttribute('aria-label', 'Открыть меню');
     burger.classList.remove('burger--active');
     menu.classList.remove('menu--active');
-    (0,_functions_enable_scroll__WEBPACK_IMPORTED_MODULE_1__.enableScroll)();
+    (0,_functions_enable_scroll__WEBPACK_IMPORTED_MODULE_0__.enableScroll)();
   });
   menuItems?.forEach(el => {
     el.addEventListener('click', () => {
@@ -259,39 +274,10 @@ __webpack_require__.r(__webpack_exports__);
       burger?.setAttribute('aria-label', 'Открыть меню');
       burger.classList.remove('burger--active');
       menu.classList.remove('menu--active');
-      (0,_functions_enable_scroll__WEBPACK_IMPORTED_MODULE_1__.enableScroll)();
+      (0,_functions_enable_scroll__WEBPACK_IMPORTED_MODULE_0__.enableScroll)();
     });
   });
 })();
-
-/***/ }),
-
-/***/ "./src/js/functions/disable-scroll.js":
-/*!********************************************!*\
-  !*** ./src/js/functions/disable-scroll.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   disableScroll: () => (/* binding */ disableScroll)
-/* harmony export */ });
-/* harmony import */ var _vars__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_vars */ "./src/js/_vars.js");
-
-const disableScroll = () => {
-  const fixBlocks = document?.querySelectorAll('.fixed-block');
-  const pagePosition = window.scrollY;
-  const paddingOffset = `${window.innerWidth - _vars__WEBPACK_IMPORTED_MODULE_0__["default"].bodyEl.offsetWidth}px`;
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].htmlEl.style.scrollBehavior = 'none';
-  fixBlocks.forEach(el => {
-    el.style.paddingRight = paddingOffset;
-  });
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].bodyEl.style.paddingRight = paddingOffset;
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].bodyEl.classList.add('dis-scroll');
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].bodyEl.dataset.position = pagePosition;
-  _vars__WEBPACK_IMPORTED_MODULE_0__["default"].bodyEl.style.top = `-${pagePosition}px`;
-};
 
 /***/ }),
 
